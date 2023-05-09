@@ -2,6 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
+use App\Entity\Product;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -40,7 +43,20 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::section('E-commerce');
+        yield MenuItem::section('Products');
+        // yield MenuItem::subMenu('Action', 'fas fa-bars')->setSubItems([
+        //     MenuItem::linkToCrud('Add product', 'fa fa-plus', Product::class)->setAction(Crud::PAGE_NEW),
+        //     MenuItem::linkToCrud('Show products', 'fa fa-eye', Product::class)
+        // ]);
+
+        yield MenuItem::linkToCrud('Show products', 'fa fa-eye', Product::class);
+        yield MenuItem::linkToCrud('Add product', 'fa fa-plus', Product::class)->setAction(Crud::PAGE_NEW);
+        
+        // yield MenuItem::subMenu('Action', 'fas fa-bars')->setSubItems([
+            yield MenuItem::linkToCrud('Show categories', 'fa fa-eye', Category::class);
+            yield MenuItem::linkToCrud('Add category', 'fa fa-plus', Category::class)->setAction(Crud::PAGE_NEW);
+        // ]);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
