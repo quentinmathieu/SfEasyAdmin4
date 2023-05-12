@@ -3,7 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class CategoryCrudController extends AbstractCrudController
 {
@@ -12,14 +17,25 @@ class CategoryCrudController extends AbstractCrudController
         return Category::class;
     }
 
-    /*
+    // create the add category form
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')->hideOnForm(),
+            TextField::new('name'),
+            BooleanField::new('active'),
+            DateTimeField::new('updatedAt')->hideOnForm(),
+            DateTimeField::new('createdAt')->hideOnForm(),
         ];
     }
-    */
+    
+    // create persist method that add set the created date
+    public function persistEntity(EntityManagerInterface $em, $entityInstance): void
+    {
+        if(!$entityInstance instanceof Category) return;
+
+        $entityInstance->setCreatedAt(new \DateTimeImmutable);
+        
+        parent::persistEntity($em, $entityInstance);
+    }
 }
