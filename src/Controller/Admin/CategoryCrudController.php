@@ -38,4 +38,17 @@ class CategoryCrudController extends AbstractCrudController
         
         parent::persistEntity($em, $entityInstance);
     }
+
+    //delete all products in the category then delete the category
+    public function deleteEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+
+
+        foreach ($entityInstance->getProducts() as $product ){
+            $entityManager->remove($product);
+        }
+
+        parent::deleteEntity($entityManager, $entityInstance);
+    }
+
 }
