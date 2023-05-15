@@ -61,18 +61,7 @@ class ProductCrudController extends AbstractCrudController
     }
     
 
-    // add a product to BDD, needed because we have to setCreatedAt
-    public function persistEntity(EntityManagerInterface $em, $entityInstance): void
-    {
-
-        if(!$entityInstance instanceof Product) return;
-
-
-        //set the create date
-        $entityInstance->setCreatedAt(new \DateTimeImmutable);
-        
-        parent::persistEntity($em, $entityInstance);
-    }
+   
 
     // update a product to BDD, needed because we have to setUpdatedAt
     public function updateEntity(EntityManagerInterface $em, $entityInstance) :void 
