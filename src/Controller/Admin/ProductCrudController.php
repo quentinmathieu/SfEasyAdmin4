@@ -63,7 +63,7 @@ class ProductCrudController extends AbstractCrudController
 
    
 
-    // update a product to BDD, needed because we have to setUpdatedAt
+    // update a product to DB, needed because we have to setUpdatedAt
     public function updateEntity(EntityManagerInterface $em, $entityInstance) :void 
     {
         if(!$entityInstance instanceof Product) return;
