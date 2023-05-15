@@ -30,14 +30,7 @@ class CategoryCrudController extends AbstractCrudController
     }
     
     // create persist method that add set the created date
-    public function persistEntity(EntityManagerInterface $em, $entityInstance): void
-    {
-        if(!$entityInstance instanceof Category) return;
-
-        $entityInstance->setCreatedAt(new \DateTimeImmutable);
-        
-        parent::persistEntity($em, $entityInstance);
-    }
+    // *moved to adminSubscrber*
 
     //delete all products in the category then delete the category
     public function deleteEntity(EntityManagerInterface $entityManager, $entityInstance): void
